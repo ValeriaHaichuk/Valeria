@@ -3,7 +3,7 @@
 int main()
 {
 int nomer, a[6];
-for (int i = 1; i < 999999; i++)
+for (int i = 1; i <= 999999; i++)
 {
 nomer = i;
 for (int j = 5; j >= 0; j--)
