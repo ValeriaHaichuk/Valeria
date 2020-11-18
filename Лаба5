@@ -1,75 +1,36 @@
-#include <stdlib.h>
-#include <stdio.h>
 #include <time.h>
+#include <stdio.h>
+#include <stdlib.h>
+#define M 5
 
-void init_output();
-void sort();
-int size, line;
-int** array;
-int status;
-
-int main() {
-do {
-status = 0;
-printf("Enter size of a square matrix (more than 0): ");
-status = scanf("%d", &size);
-rewind(stdin); 
-system("cls");
-} while (size < 1 && status == 0);
-do {
-status = 0;
-printf("Enter line number (from 1 to %d): ", size);
-status = scanf("%d", &line);
-rewind(stdin); 
-system("cls");
-} while ((line > size || line < 1) || status == 0);
-line--;
-printf("\n");
-
-init_output(); 
-sort();
-
-for (int i = 0; i < size; ++i) {
-for (int j = 0; j < size; ++j) {
-printf("%d ", array[i][j]);
-}
-printf("\n");
-} 
-
-for (int i = 0; i < size; i++) {
-free(array[i]);
-}
-free(array); 
-return 0;
+void print_matrix(const char str[], int a[][M], int size){
+	puts(str);
+	for (int i = 0; i < size; i++, puts(""))
+		for (int k = 0; k < size; k++)
+			printf("%5d", a[i][k]);
 }
 
-void init_output() {
-array = (int**)malloc(size * sizeof(int*));
-for (int i = 0; i < size; i++) {
-array[i] = (int*)malloc(size * sizeof(int));
-}
-srand(time(NULL));
-for (int i = 0; i < size; i++) {
-for (int j = 0; j < size; j++) {
-array[i][j] = rand() % 201 - 100; 
-printf("%d ", array[i][j]);
-}
-printf("\n");
-}
-printf("\n");
+void bubble_sort(int a[], int size) {
+	for (int i = size-1; i > 0;i--)
+		for(int k = 0; k < i; k++)
+			if (a[k] > a[k+1]) {
+				int tmp = a[k];
+				a[k] = a[k+1];
+				a[k + 1] = tmp;
+			}
 }
 
-void sort() {
-for (int i = 0; i < size - 1; i++)
-{
-for (int j = (size - 1); j > i; j--)
-{
-if (array[line][j - 1] > array[line][j])
-{
-int temp = array[line][j - 1];
-array[line][j - 1] = array[line][j];
-array[line][j] = temp;
-}
-}
-}
+int main(void) {
+	srand((unsigned)time(NULL) / 2);
+	int a[M][M];
+
+	for (int i = 0; i < M; i++)
+		for (int k = 0; k < M; k++)
+			a[i][k] = rand() % 100;
+
+	print_matrix("Matrix:", a, M);
+	bubble_sort(a[rand() %M], M);
+	print_matrix("\nSorted:", a, M);
+
+	return 0;
 }
