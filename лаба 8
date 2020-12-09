@@ -1,0 +1,87 @@
+#include<stdio.h>
+#include<Windows.h>
+#include<locale.h>
+int main()
+{
+setlocale(LC_ALL, "ru");
+int n, m;
+do
+{
+system("CLS");
+printf("Введите количество строк (больше 4) ");
+scanf("%d", &n);
+} 
+while (n < 4);
+printf("Введите размер строк ");
+scanf("%d", &m);
+char** s;
+char** s1;
+s = (char**)calloc(n,sizeof(char*));
+s1= (char**)calloc(n,sizeof(char*));
+for (int i = 0; i < n; i++) {
+s[i] = (char*)calloc(m, sizeof(char));
+s1[i] = (char*)calloc(m, sizeof(char));
+}
+gets(s[0]);
+for (int i = 0; i < n; i++)
+{
+gets(s[i]);
+}
+int c = n / 4;
+int r;
+for (int k = 0; k < c; k++) 
+{
+int p = k;
+for (int i = k+1; i < n; i++) 
+{
+if (s[i][0] < s[p][0])
+{
+p = i;
+}
+else if (s[i][0] == s[p][0]) 
+{
+for (int j = 1; j < m; j++)
+{
+if (s[i][j] < s[p][j]) 
+{
+p = i;
+break;
+}
+else if(s[i][j] > s[p][j]){
+break;
+}
+}
+}
+
+}
+for (int i = p; i > k; i--)
+{
+r = s[i];
+s[i] = s[i - 1];
+s[i - 1] = r;
+}
+}
+int i1 = 0;
+for (int i = c; i < n; i++)
+{
+s1[i1] = s[i];
+i1++;
+}
+for (int i = 0; i < c; i++)
+{
+s1[i1] = s[i];
+i1++;
+}
+printf("\nНовый массив\n");
+for (int i = 0; i < n; i++)
+{
+puts(s1[i]);
+}
+for (int i = 0; i < n; i++)
+{
+free(s[i]);
+}
+free(s1);
+free(s);
+return 0;
+}
