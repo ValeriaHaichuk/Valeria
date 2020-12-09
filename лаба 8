@@ -9,11 +9,11 @@ do
 {
 system("CLS");
 printf("Введите количество строк (больше 4) ");
-scanf("%d", &n);
+scanf_s("%d", &n);
 } 
 while (n < 4);
 printf("Введите размер строк ");
-scanf("%d", &m);
+scanf_s("%d", &m);
 char** s;
 char** s1;
 s = (char**)calloc(n,sizeof(char*));
