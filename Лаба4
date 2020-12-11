@@ -5,10 +5,11 @@ void search_min();
 void search_max();
 void init_output();
 int array[SIZE];
-int max = array[0], min = array[0];
-
+int max, min;
 int main() {
 init_output();
+max=array[0];
+min=array[0];
 search_max();
 search_min();
 printf("Max( %d ) + min( %d ) = %d\n", max, min, max + min);
@@ -33,4 +34,4 @@ void search_max() {
 for (int i = 0; i < SIZE; i++) {
 if (array[i] > max) { max = array[i]; }
 }
-}
+} 
