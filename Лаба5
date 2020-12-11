@@ -1,36 +1,43 @@
-#include <time.h>
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
-#define M 5
+#define M 3
 
-void print_matrix(const char str[], int a[][M], int size){
-	puts(str);
-	for (int i = 0; i < size; i++, puts(""))
-		for (int k = 0; k < size; k++)
+void print_matrix(int a[][M], int size) {
+
+	for (int i = 0; i < size; i++) {
+		for (int k = 0; k < size; k++) {
 			printf("%5d", a[i][k]);
+		}
+		printf("\n");
+	}
 }
-
 void bubble_sort(int a[], int size) {
-	for (int i = size-1; i > 0;i--)
-		for(int k = 0; k < i; k++)
-			if (a[k] > a[k+1]) {
+	for (int i = size - 1; i > 0; i--)
+		for (int k = 0; k < i; k++)
+			if (a[k] > a[k + 1]) {
 				int tmp = a[k];
-				a[k] = a[k+1];
+				a[k] = a[k + 1];
 				a[k + 1] = tmp;
 			}
 }
-
-int main(void) {
-	srand((unsigned)time(NULL) / 2);
+int main() {
+	setlocale(LC_ALL, "ru");
 	int a[M][M];
-
 	for (int i = 0; i < M; i++)
-		for (int k = 0; k < M; k++)
-			a[i][k] = rand() % 100;
+		for (int k = 0; k < M; k++) {
+			printf("a[%d][%d]= ", i, k);
+			scanf_s("%d", &a[i][k]);
+		}
 
-	print_matrix("Matrix:", a, M);
-	bubble_sort(a[rand() %M], M);
-	print_matrix("\nSorted:", a, M);
+	int l;
+	printf("Matrix\n");
+	print_matrix(a, M);
+	printf("Введите строку которую хотите отсортировать ");
+	scanf_s("%d", &l);
+	bubble_sort(a[l], M);
+	printf("Sorted\n");
+	print_matrix(a, M);
 
 	return 0;
 }
